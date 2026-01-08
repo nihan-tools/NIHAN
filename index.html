@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIHANS Profilo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e17 0%, #141b2d 50%, #0f131f 100%);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated Background Elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.1) 0%, rgba(0, 168, 255, 0) 70%);
+            animation: float 20s infinite linear;
+        }
+
+        .bg-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(156, 136, 255, 0.1) 0%, rgba(156, 136, 255, 0) 70%);
+        }
+
+        .bg-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0) 70%);
+        }
+
+        .bg-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, rgba(72, 219, 251, 0.1) 0%, rgba(72, 219, 251, 0) 70%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(180deg, #0a0e17 0%, #141b2d 100%);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #ff6b6b);
+            border-radius: 10px;
+            border: 3px solid #0a0e17;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, rgba(21, 29, 49, 0.98) 0%, rgba(30, 40, 68, 0.98) 100%);
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 168, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            font-size: 2.8em;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from {
+                text-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+            }
+            to {
+                text-shadow: 0 5px 25px rgba(156, 136, 255, 0.5), 0 0 30px rgba(255, 107, 107, 0.4);
+            }
+        }
+
+        .creator-name {
+            font-size: 1.3em;
+            color: #48dbfb;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .creator-name::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6b6b;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #a0b3d6;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff);
+            border-radius: 30px;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        nav a:hover::before {
+            transform: translateX(0);
+        }
+
+        nav a:hover {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 120px 50px 50px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 168, 255, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        section h2 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #48dbfb, #9c88ff, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #00a8ff, #9c88ff);
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #b8c7e8;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        /* About section specific */
+        #about {
+            background: linear-gradient(135deg, rgba(15, 22, 40, 0.9) 0%, rgba(25, 35, 60, 0.9) 100%);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff);
+            padding: 5px;
+            animation: pulse 4s infinite alternate;
+            box-shadow: 0 0 50px rgba(0, 168, 255, 0.4);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 50px rgba(0, 168, 255, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 70px rgba(156, 136, 255, 0.6), 0 0 100px rgba(255, 107, 107, 0.3);
+            }
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #141b2d;
+        }
+
+        .about-text {
+            flex: 1;
+            background: rgba(25, 35, 60, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 4px solid #00a8ff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-text h3 {
+            color: #48dbfb;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        /* Video grid */
+        #videos {
+            background: linear-gradient(135deg, rgba(25, 35, 60, 0.9) 0%, rgba(30, 40, 68, 0.9) 100%);
+        }
+
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1300px;
+            margin-top: 30px;
+        }
+
+        .video-container {
+            background: linear-gradient(145deg, rgba(35, 45, 75, 0.8), rgba(25, 35, 60, 0.8));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 168, 255, 0.1);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .video-container:nth-child(1) { animation-delay: 0.3s; }
+        .video-container:nth-child(2) { animation-delay: 0.5s; }
+        .video-container:nth-child(3) { animation-delay: 0.7s; }
+        .video-container:nth-child(4) { animation-delay: 0.9s; }
+
+        .video-container:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.3);
+            border-color: rgba(0, 168, 255, 0.3);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 168, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .play-btn i {
+            color: white;
+            font-size: 24px;
+            margin-left: 5px;
+        }
+
+        .video-container:hover .play-btn {
+            background: rgba(156, 136, 255, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 25px;
+            position: relative;
+        }
+
+        .video-info h3 {
+            color: #48dbfb;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .video-info p {
+            font-size: 1em;
+            text-align: left;
+            margin-bottom: 20px;
+            color: #b8c7e8;
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(0, 168, 255, 0.2);
+            color: #00a8ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(0, 168, 255, 0.3);
+        }
+
+        /* Contact section */
+        #contact {
+            background: linear-gradient(135deg, rgba(30, 40, 68, 0.9) 0%, rgba(21, 29, 49, 0.9) 100%);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .contact-info {
+            flex: 1;
+            background: rgba(25, 35, 60, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 4px solid #ff6b6b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info h3 {
+            color: #ff6b6b;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 168, 255, 0.2);
+        }
+
+        .contact-item i {
+            font-size: 1.5em;
+            color: #00a8ff;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 168, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3em;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
+        }
+
+        .social-btn.youtube { background: linear-gradient(45deg, #ff0000, #ff6b6b); }
+        .social-btn.linkedin { background: linear-gradient(45deg, #0077b5, #00a8ff); }
+        .social-btn.twitter { background: linear-gradient(45deg, #1da1f2, #48dbfb); }
+        .social-btn.github { background: linear-gradient(45deg, #333, #6e8efb); }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, rgba(21, 29, 49, 0.95) 0%, rgba(15, 22, 40, 0.95) 100%);
+            color: #b8c7e8;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(0, 168, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00a8ff, #9c88ff, #ff6b6b);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: #48dbfb;
+            font-weight: 600;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(20px, -20px);
+            }
+            50% {
+                transform: translate(-15px, 15px);
+            }
+            75% {
+                transform: translate(15px, 20px);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            nav a {
+                margin: 0 10px;
+                font-size: 0.9em;
+                padding: 6px 15px;
+            }
+            
+            section {
+                padding: 120px 20px 40px 20px;
+            }
+            
+            section h2 {
+                font-size: 2.5em;
+            }
+            
+            .videos {
+                grid-template-columns: 1fr;
+            }
+            
+            .creator-name {
+                font-size: 1.1em;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <h1 class="logo">NIHANS Profilo</h1>
+            <div class="creator-name">Sudipto X</div>
+        </div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#videos">Study Videos</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Passionate educator and content creator dedicated to making learning engaging and effective</p>
+        <div class="about-content">
+            <div class="profile-img">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Sudipto X">
+            </div>
+            <div class="about-text">
+                <h3>Hello, I'm Sudipto X (NIHANS)</h3>
+                <p>I'm a passionate educator and content creator who believes that learning should be an exciting journey, not a chore. With a background in education and digital media, I create study materials that transform complex topics into engaging, easy-to-understand content.</p>
+                <p>My mission is to help students discover the joy of learning through carefully crafted videos, interactive resources, and proven study techniques. I specialize in breaking down difficult concepts and presenting them in ways that resonate with diverse learning styles.</p>
+                <p>When I'm not creating educational content, you'll find me exploring new teaching methodologies, experimenting with visual storytelling techniques, or collaborating with fellow educators to push the boundaries of digital learning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Videos Section -->
+    <section id="videos">
+        <h2>Study Videos</h2>
+        <p>Explore my collection of premium study videos designed to transform your learning experience</p>
+        <div class="videos">
+            <div class="video-container">
+                <div class="video-thumbnail" style="background: linear-gradient(45deg, #00a8ff, #48dbfb);">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>Effective Study Techniques Masterclass</h3>
+                    <p>Discover scientifically proven study methods that will help you retain information longer and study more efficiently. Learn about spaced repetition, active recall, and other powerful techniques.</p>
+                    <div class="video-tags">
+                        <span class="tag">Study Methods</span>
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Learning</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-thumbnail" style="background: linear-gradient(45deg, #9c88ff, #8c7ae6);">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>Time Management for Peak Performance</h3>
+                    <p>Master the art of time management with strategies specifically designed for students. Learn to balance studies, hobbies, and personal life while maximizing productivity.</p>
+                    <div class="video-tags">
+                        <span class="tag">Time Management</span>
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Balance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-thumbnail" style="background: linear-gradient(45deg, #ff6b6b, #ff9f43);">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>Memory Palace & Mnemonic Techniques</h3>
+                    <p>Unlock the power of your memory with ancient and modern mnemonic techniques. Learn how to remember complex information with ease using visualization and association methods.</p>
+                    <div class="video-tags">
+                        <span class="tag">Memory</span>
+                        <span class="tag">Mnemonics</span>
+                        <span class="tag">Techniques</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-thumbnail" style="background: linear-gradient(45deg, #48dbfb, #0abde3);">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>Exam Preparation Blueprint</h3>
+                    <p>A comprehensive guide to preparing for exams, from creating effective study plans to managing exam stress. Learn strategies that top students use to ace their exams.</p>
+                    <div class="video-tags">
+                        <span class="tag">Exams</span>
+                        <span class="tag">Preparation</span>
+                        <span class="tag">Strategies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <p>Have questions about my study materials or want to suggest topics for future videos? I'd love to hear from you!</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Feel free to reach out for collaborations, questions about study techniques, or just to connect. I'm always excited to discuss education and learning strategies.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>nihan7690@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Based in Kolkata, India</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Response Time</h4>
+                            <p>Typically within 24-48 hours</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn github"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>Transforming education through engaging content and innovative teaching methods</p>
+            <p>© 2024 NIHANS Profilo. All rights reserved.</p>
+            <p class="copyright">Created with passion for education by Sudipto X</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Add active class to current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const headerHeight = document.querySelector('header').offsetHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Play button animation
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                }, 150);
+                
+                // In a real implementation, this would play the video
+                alert('Video player would open in a real implementation!');
+            });
+        });
+
+        // Page load animations
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.8s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
